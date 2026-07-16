@@ -17,7 +17,7 @@ Note: For each actuator, it is easier to configure them before installing, altho
 ![](assets/dm_actuator/02_power_on.png)
 5. Click Parameter settings（参数设置） in the top selection bar, then click Read parameters（读参数）.
 ![](assets/dm_actuator/03_read_parameter.png)
-6. For the ith actuator on each arm (from shoulder to gripper 1-8), lets use an example of the elbow actuator (the 1st)
+6. For the ith actuator on each arm (from shoulder to gripper 1-8), lets use an example of the shoulder actuator (the 1st)
    1. Set CAN-ID to 0x01 (0x0i for ith)
    2. Set master ID to 0x11 (0x1i for ith)
    3. Click "write parameter"（写参数）. You should see a window pop up saying "parameter write successful"（参数写入成功）
