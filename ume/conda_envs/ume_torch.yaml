@@ -1,0 +1,26 @@
+README.mdname: ume_torch
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip=25.1
+  - ipykernel
+  - numpy=1.26
+  - scipy=1.15
+  - py-opencv=4.11
+  - av
+  - redis-server=7.4.0
+  - redis-py=5.3.0
+  - hiredis=3.1.0
+  - py-opencv=4.11
+  - pytorch
+  - torchvision
+  # umi baseline
+  - pinocchio=3.4
+  - pip:
+    - tqdm
+    - matplotlib
+    - pyyaml
+    - typer==0.15
+    - wandb
+

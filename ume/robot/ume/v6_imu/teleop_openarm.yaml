@@ -1,0 +1,103 @@
+environment:
+  - "PYTHONUNBUFFERED=1"
+
+processes:
+  control_redis:
+    description: Redis server
+    command: '$([ "$(uname)" = "Darwin" ] && echo "" || echo "taskset -c 15") redis-server --save "" --appendonly no --notify-keyspace-events Kg$ --port 6379'
+    ready_log_line: "Ready to accept connections"
+    availability:
+      restart: "exit_on_failure"
+  
+  ume_leader_mit_controller_right:
+    description: ume right leader mit controller
+    command: python ume/workers/damiao_chain_mit_controller.py --can-channel can4 --control-frequency-hz 800 --motor-ids "1,2,3,4,5,6,7,8" --motor-types "DM4340,DM4340,DM4340,DM4340,DM4310,DM4310,DM4310,DM4310" --redis-port 6379 --input-name ume_leader_right_mit_command --output-name ume_leader_right_state
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  ume_leader_mit_controller_left:
+    description: ume left leader mit controller
+    command: python ume/workers/damiao_chain_mit_controller.py --can-channel can5 --control-frequency-hz 800 --motor-ids "1,2,3,4,5,6,7,8" --motor-types "DM4340,DM4340,DM4340,DM4340,DM4310,DM4310,DM4310,DM4310" --redis-port 6379 --input-name ume_leader_left_mit_command --output-name ume_leader_left_state
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  imu_worker:
+    description: IMU worker
+    command: python ume/robot/ybimu/ybimu_redis_worker.py
+    ready_log_line: "ybimu redis worker ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  ume_leader_controller:
+    description: ume leader pinocchio controller
+    command: python ume/robot/ume/v6_imu/ume_leader/controller.py --redis-port 6379
+    ready_log_line: "ume leader controller ready"
+    depends_on:
+      ume_leader_mit_controller_right:
+        condition: process_log_ready
+      ume_leader_mit_controller_left:
+        condition: process_log_ready
+      imu_worker:
+        condition: process_log_ready
+    # shutdown:
+    #   signal: 2
+    #   timeout_ms: 3000
+  
+  # ume_leader_vis:
+  #   description: ume leader visualization
+  #   command: python ume/robot/ume/v6_imu/ume_leader/vis.py --redis-port 6379
+  #   ready_log_line: "ume vis ready"
+  #   depends_on:
+  #     ume_leader_controller:
+  #       condition: process_log_ready
+  #   shutdown:
+  #     signal: 2
+  #     timeout_ms: 3000
+  
+  follower_mit_controller_left:
+    description: openarm left follower mit controller
+    command: taskset -c 12 python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_left_mit_command --output-name openarm_follower_left_state --can-channel can2 --control-frequency-hz 800
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  follower_mit_controller_right:
+    description: openarm right follower mit controller
+    command: taskset -c 11 python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_right_mit_command --output-name openarm_follower_right_state --can-channel can3 --control-frequency-hz 800
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  # follower_vis:
+  #   description: openarm teleop solver
+  #   command: python ume/robot/openarm1/teleop_vis.py --redis-port 6379 --left openarm_follower_left --right openarm_follower_right
+  #   ready_log_line: "teleop vis ready"
+  #   depends_on:
+  #     follower_mit_controller_left:
+  #       condition: process_log_ready
+  #     follower_mit_controller_right:
+  #       condition: process_log_ready
+  #   # shutdown:
+  #   #   signal: 2
+  #   #   timeout_ms: 3000
+
+  openarm_follower_controller:
+    description: openarm follower pinocchio controller
+    command: python ume/robot/ume/v6_bimanual/openarm_follower/controller_real.py --redis-port 6379
+    depends_on:
+      follower_mit_controller_left:
+        condition: process_log_ready
+      follower_mit_controller_right:
+        condition: process_log_ready
+      ume_leader_controller:
+        condition: process_log_ready
+    ready_log_line: "openarm follower controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000

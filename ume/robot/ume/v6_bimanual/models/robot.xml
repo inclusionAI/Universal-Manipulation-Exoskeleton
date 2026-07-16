@@ -1,0 +1,356 @@
+<?xml version="1.0" ?>
+<mujoco model="models">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <default>
+    <default class="models">
+      <joint frictionloss="0.1" armature="0.005"/>
+      <position kp="50" dampratio="1"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom group="3"/>
+      </default>
+    </default>
+  </default>
+  <worldbody>
+    <!-- Link v5_4040_j1 -->
+    <body name="v5_4040_j1" pos="0 0 0" quat="1 0 0 0" childclass="models">
+      <inertial pos="-0.00725532 0.0615 -0" mass="1.044" fullinertia="0.0381441 0.000626549 0.0381676 -0 -0 6e-11"/>
+      <!-- Part dm_j4340_2ec -->
+      <geom type="mesh" class="visual" pos="0.015 0.2615 -0" quat="0 -0.707107 0 0.707107" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+      <geom type="mesh" class="collision" pos="0.015 0.2615 -0" quat="0 -0.707107 0 0.707107" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+      <!-- Part v5_4040_j1 -->
+      <geom type="mesh" class="visual" pos="0 0 0" quat="1 0 0 0" mesh="v5_4040_j1" material="v5_4040_j1_material"/>
+      <geom type="mesh" class="collision" pos="0 0 0" quat="1 0 0 0" mesh="v5_4040_j1" material="v5_4040_j1_material"/>
+      <!-- Part dm_j4340_2ec_2 -->
+      <geom type="mesh" class="visual" pos="0.015 -0.1385 0" quat="0.707107 0 -0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+      <geom type="mesh" class="collision" pos="0.015 -0.1385 0" quat="0.707107 0 -0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+      <!-- Part 4040x30cm -->
+      <geom type="mesh" class="visual" pos="-0 0.2115 -0" quat="0.707107 0.707107 -0 -0" mesh="4040x30cm" material="4040x30cm_material"/>
+      <geom type="mesh" class="collision" pos="-0 0.2115 -0" quat="0.707107 0.707107 -0 -0" mesh="4040x30cm" material="4040x30cm_material"/>
+      <!-- Part v5_4040_j1_2 -->
+      <geom type="mesh" class="visual" pos="0 0.123 -0" quat="0 1 0 0" mesh="v5_4040_j1" material="v5_4040_j1_material"/>
+      <geom type="mesh" class="collision" pos="0 0.123 -0" quat="0 1 0 0" mesh="v5_4040_j1" material="v5_4040_j1_material"/>
+      <!-- Link v6_j1_20 -->
+      <body name="v6_j1_20" pos="-0.0383 -0.1385 0" quat="0.183013 0.683013 -0.183013 -0.683013">
+        <!-- Joint from v5_4040_j1 to v6_j1_20 -->
+        <joint axis="0 0 1" name="RJ1" type="hinge"/>
+        <inertial pos="0.150386 -5.99e-10 -0.0862657" mass="0.64749" fullinertia="0.0032465 0.00514141 0.00215547 6e-12 0.00180143 1.8e-11"/>
+        <!-- Part v6_20_j2 -->
+        <geom type="mesh" class="visual" pos="-0.0081 -0 0.036052" quat="0 -1 0 0" mesh="v6_20_j2" material="v6_20_j2_material"/>
+        <geom type="mesh" class="collision" pos="-0.0081 -0 0.036052" quat="0 -1 0 0" mesh="v6_20_j2" material="v6_20_j2_material"/>
+        <!-- Part v6_j1_20 -->
+        <geom type="mesh" class="visual" pos="0 -0 0.036" quat="0 1 0 0" mesh="v6_j1_20" material="v6_j1_20_material"/>
+        <geom type="mesh" class="collision" pos="0 -0 0.036" quat="0 1 0 0" mesh="v6_j1_20" material="v6_j1_20_material"/>
+        <!-- Part 2020x20cm -->
+        <geom type="mesh" class="visual" pos="0.2253 -0 0.018" quat="0 -0.707107 0 0.707107" mesh="2020x20cm" material="2020x20cm_material"/>
+        <geom type="mesh" class="collision" pos="0.2253 -0 0.018" quat="0 -0.707107 0 0.707107" mesh="2020x20cm" material="2020x20cm_material"/>
+        <!-- Part dm_j4340_2ec_3 -->
+        <geom type="mesh" class="visual" pos="0.1532 -0 -0.139098" quat="0.707107 -0 0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+        <geom type="mesh" class="collision" pos="0.1532 -0 -0.139098" quat="0.707107 -0 0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+        <!-- Part 2020x10cm -->
+        <geom type="mesh" class="visual" pos="0.1653 -0 -0.092" quat="0.707107 0 0 0.707107" mesh="2020x10cm" material="2020x10cm_material"/>
+        <geom type="mesh" class="collision" pos="0.1653 -0 -0.092" quat="0.707107 0 0 0.707107" mesh="2020x10cm" material="2020x10cm_material"/>
+        <!-- Link v6_20_j3 -->
+        <body name="v6_20_j3" pos="0.2065 -0 -0.139098" quat="0.5 0.5 0.5 0.5">
+          <!-- Joint from v6_j1_20 to v6_20_j3 -->
+          <joint axis="0 0 1" name="RJ2" type="hinge"/>
+          <inertial pos="0.0816108 2.273e-09 -0.108365" mass="0.6629" fullinertia="0.00347714 0.00399968 0.000810527 1.64e-10 0.00105864 -1.66e-10"/>
+          <!-- Part v6_j2_20 -->
+          <geom type="mesh" class="visual" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_j2_20" material="v6_j2_20_material"/>
+          <geom type="mesh" class="collision" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_j2_20" material="v6_j2_20_material"/>
+          <!-- Part 2020x20cm_2 -->
+          <geom type="mesh" class="visual" pos="0.127501 -0 -0.135474" quat="0.683013 0.183013 -0.183013 -0.683013" mesh="2020x20cm" material="2020x20cm_material"/>
+          <geom type="mesh" class="collision" pos="0.127501 -0 -0.135474" quat="0.683013 0.183013 -0.183013 -0.683013" mesh="2020x20cm" material="2020x20cm_material"/>
+          <!-- Part v6_20_j3 -->
+          <geom type="mesh" class="visual" pos="-0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_20_j3" material="v6_20_j3_material"/>
+          <geom type="mesh" class="collision" pos="-0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_20_j3" material="v6_20_j3_material"/>
+          <!-- Part dm_j4340_2ec_4 -->
+          <geom type="mesh" class="visual" pos="0.114169 0 -0.148384" quat="0.353553 0.612372 -0.612372 -0.353553" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+          <geom type="mesh" class="collision" pos="0.114169 0 -0.148384" quat="0.353553 0.612372 -0.612372 -0.353553" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+          <!-- Link v6_j3_2020_r -->
+          <body name="v6_j3_2020_r" pos="0.0680103 -0 -0.175034" quat="0.353553 0.612372 -0.612372 -0.353553">
+            <!-- Joint from v6_20_j3 to v6_j3_2020_r -->
+            <joint axis="0 0 1" name="RJ3" type="hinge"/>
+            <inertial pos="-0.0212538 0.197218 0.0388781" mass="0.86248" fullinertia="0.00735386 0.00260883 0.00681043 -0.00104227 0.000890554 0.000819778"/>
+            <!-- Part 2020x20cm_3 -->
+            <geom type="mesh" class="visual" pos="-0.0681202 0.2685 0.078682" quat="0.707107 0.707107 0 -0" mesh="2020x20cm" material="2020x20cm_material"/>
+            <geom type="mesh" class="collision" pos="-0.0681202 0.2685 0.078682" quat="0.707107 0.707107 0 -0" mesh="2020x20cm" material="2020x20cm_material"/>
+            <!-- Part v6_2020_j4_r -->
+            <geom type="mesh" class="visual" pos="-0.0681202 0.2885 0.078682" quat="0.5 0.5 -0.5 0.5" mesh="v6_2020_j4_r" material="v6_2020_j4_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.0681202 0.2885 0.078682" quat="0.5 0.5 -0.5 0.5" mesh="v6_2020_j4_r" material="v6_2020_j4_r_material"/>
+            <!-- Part dm_j4340_2ec_5 -->
+            <geom type="mesh" class="visual" pos="0.00787981 0.26 0.027332" quat="0 -1 0 -0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+            <geom type="mesh" class="collision" pos="0.00787981 0.26 0.027332" quat="0 -1 0 -0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+            <!-- Part v6_j3_2020_r -->
+            <geom type="mesh" class="visual" pos="-0.0286202 0.0885 0.028682" quat="0.5 0.5 0.5 -0.5" mesh="v6_j3_2020_r" material="v6_j3_2020_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.0286202 0.0885 0.028682" quat="0.5 0.5 0.5 -0.5" mesh="v6_j3_2020_r" material="v6_j3_2020_r_material"/>
+            <!-- Frame R_shoulder -->
+            <site group="3" name="R_shoulder" pos="-0.000120192 -0 0.078682" quat="0.5 0.5 0.5 0.5"/>
+            <!-- Link v6_j4_j5_r -->
+            <body name="v6_j4_j5_r" pos="0.00787981 0.26 -0.025968" quat="0 0.707107 -0.707107 -0">
+              <!-- Joint from v6_j3_2020_r to v6_j4_j5_r -->
+              <joint axis="0 0 1" name="RJ4" type="hinge"/>
+              <inertial pos="-0.054697 0.00944171 -0.00245461" mass="0.49139" fullinertia="0.00105657 0.00119188 0.000538644 -2.97344e-05 -0.000120659 0.000177465"/>
+              <!-- Part dm_j4310_2ec -->
+              <geom type="mesh" class="visual" pos="-0.0431803 0 0.0244282" quat="0.348175 0.615447 -0.615447 -0.348175" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+              <geom type="mesh" class="collision" pos="-0.0431803 0 0.0244282" quat="0.348175 0.615447 -0.615447 -0.348175" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+              <!-- Part v6_j4_j5_r -->
+              <geom type="mesh" class="visual" pos="-0.0285 0.0285 0" quat="0.5 0.5 0.5 -0.5" mesh="v6_j4_j5_r" material="v6_j4_j5_r_material"/>
+              <geom type="mesh" class="collision" pos="-0.0285 0.0285 0" quat="0.5 0.5 0.5 -0.5" mesh="v6_j4_j5_r" material="v6_j4_j5_r_material"/>
+              <!-- Link v6_wrist_j5_j6 -->
+              <body name="v6_wrist_j5_j6" pos="-0.0825226 -0 0.000785249" quat="0 -0.870373 0 0.492393">
+                <!-- Joint from v6_j4_j5_r to v6_wrist_j5_j6 -->
+                <joint axis="0 0 1" name="RJ5" type="hinge"/>
+                <inertial pos="-0.145145 7.46224e-05 0.168843" mass="0.4484" fullinertia="0.00261478 0.00340573 0.00098092 -2.29433e-06 0.00132169 3.71339e-06"/>
+                <!-- Part v6_wrist_j5_j6 -->
+                <geom type="mesh" class="visual" pos="0 -0.0285 0.0075" quat="0.707107 -0.707107 -0 -0" mesh="v6_wrist_j5_j6" material="v6_wrist_j5_j6_material"/>
+                <geom type="mesh" class="collision" pos="0 -0.0285 0.0075" quat="0.707107 -0.707107 -0 -0" mesh="v6_wrist_j5_j6" material="v6_wrist_j5_j6_material"/>
+                <!-- Part v6_xt30_2_2_50cm -->
+                <geom type="mesh" class="visual" pos="-0.0816102 0.005 0.0643898" quat="0.270598 0.270598 0.653281 -0.653281" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                <geom type="mesh" class="collision" pos="-0.0816102 0.005 0.0643898" quat="0.270598 0.270598 0.653281 -0.653281" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                <!-- Part dm_j4310_2ec_2 -->
+                <geom type="mesh" class="visual" pos="-0.146 -0 0.212" quat="0.5 -0.5 -0.5 0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                <geom type="mesh" class="collision" pos="-0.146 -0 0.212" quat="0.5 -0.5 -0.5 0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                <!-- Link v5_wrist_j6_j7 -->
+                <body name="v5_wrist_j6_j7" pos="-0.1919 0 0.212" quat="0 -0.707107 -0 0.707107">
+                  <!-- Joint from v6_wrist_j5_j6 to v5_wrist_j6_j7 -->
+                  <joint axis="0 0 1" name="RJ6" type="hinge"/>
+                  <inertial pos="-0 0.0975631 -0.161926" mass="0.407" fullinertia="0.00180585 0.00164708 0.000326757 0 -0 0.000247612"/>
+                  <!-- Part v5_wrist_j6_j7 -->
+                  <geom type="mesh" class="visual" pos="0 0.131 -0.0955" quat="0.5 0.5 0.5 -0.5" mesh="v5_wrist_j6_j7" material="v5_wrist_j6_j7_material"/>
+                  <geom type="mesh" class="collision" pos="0 0.131 -0.0955" quat="0.5 0.5 0.5 -0.5" mesh="v5_wrist_j6_j7" material="v5_wrist_j6_j7_material"/>
+                  <!-- Part dm_j4310_2ec_3 -->
+                  <geom type="mesh" class="visual" pos="0 0.121 -0.191" quat="0.707107 0.707107 0 -0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                  <geom type="mesh" class="collision" pos="0 0.121 -0.191" quat="0.707107 0.707107 0 -0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                  <!-- Part v6_xt30_2_2_50cm_2 -->
+                  <geom type="mesh" class="visual" pos="-0 0.121 -0.0925" quat="0.707107 0.707107 0 -0" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                  <geom type="mesh" class="collision" pos="-0 0.121 -0.0925" quat="0.707107 0.707107 0 -0" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                  <!-- Link v5_wrist_j7_leader_gripper_r -->
+                  <body name="v5_wrist_j7_leader_gripper_r" pos="-0 0.0751 -0.191" quat="0.5 0.5 -0.5 0.5">
+                    <!-- Joint from v5_wrist_j6_j7 to v5_wrist_j7_leader_gripper_r -->
+                    <joint axis="0 0 1" name="RJ7" type="hinge"/>
+                    <inertial pos="-0.00205487 0.0647313 0.154012" mass="0.4573" fullinertia="0.00200291 0.00193779 0.000443531 -3.45159e-05 2.74273e-06 -0.000439089"/>
+                    <!-- Part v6_xt30_2_2_50cm_3 -->
+                    <geom type="mesh" class="visual" pos="0.025 0.0547059 0.0643213" quat="0.5 -0.5 0.5 -0.5" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                    <geom type="mesh" class="collision" pos="0.025 0.0547059 0.0643213" quat="0.5 -0.5 0.5 -0.5" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                    <!-- Part v5_wrist_j7_leader_gripper_r -->
+                    <geom type="mesh" class="visual" pos="0 0 0" quat="1 0 -0 -0" mesh="v5_wrist_j7_leader_gripper_r" material="v5_wrist_j7_leader_gripper_r_material"/>
+                    <geom type="mesh" class="collision" pos="0 0 0" quat="1 0 -0 -0" mesh="v5_wrist_j7_leader_gripper_r" material="v5_wrist_j7_leader_gripper_r_material"/>
+                    <!-- Part dm_j4310_2ec_4 -->
+                    <geom type="mesh" class="visual" pos="0 0.075 0.21" quat="0 -0.707107 0.707107 -0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                    <geom type="mesh" class="collision" pos="0 0.075 0.21" quat="0 -0.707107 0.707107 -0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                    <!-- Frame R_wrist -->
+                    <site group="3" name="R_wrist" pos="0 0 0.0751" quat="0.707107 -0 -0 0.707107"/>
+                    <!-- Link v5_j8_4finger -->
+                    <body name="v5_j8_4finger" pos="0 0.075 0.1641" quat="0 -0.707107 -0.707107 -0">
+                      <!-- Joint from v5_wrist_j7_leader_gripper_r to v5_j8_4finger -->
+                      <joint axis="0 0 1" name="RJ8" type="hinge"/>
+                      <inertial pos="0.0582262 -2.729e-09 0.031412" mass="0.0384" fullinertia="3.92746e-05 6.14789e-05 2.96973e-05 -1e-12 -1.19931e-05 2e-12"/>
+                      <!-- Part v5_j8_4finger -->
+                      <geom type="mesh" class="visual" pos="0 0 0.01" quat="0 1 0 0" mesh="v5_j8_4finger" material="v5_j8_4finger_material"/>
+                      <geom type="mesh" class="collision" pos="0 0 0.01" quat="0 1 0 0" mesh="v5_j8_4finger" material="v5_j8_4finger_material"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <!-- Link dm_j4340_2ec -->
+      <body name="dm_j4340_2ec" pos="-0.0383 0.2615 -0" quat="0.183013 -0.683013 -0.183013 0.683013">
+        <!-- Joint from v5_4040_j1 to dm_j4340_2ec -->
+        <joint axis="0 0 1" name="LJ1" type="hinge"/>
+        <inertial pos="0.150386 -5.99e-10 -0.0862657" mass="0.64749" fullinertia="0.0032465 0.00514141 0.00215547 6e-12 0.00180143 1.8e-11"/>
+        <!-- Part v6_j1_20_2 -->
+        <geom type="mesh" class="visual" pos="0 -0 0.036" quat="0 1 0 0" mesh="v6_j1_20" material="v6_j1_20_material"/>
+        <geom type="mesh" class="collision" pos="0 -0 0.036" quat="0 1 0 0" mesh="v6_j1_20" material="v6_j1_20_material"/>
+        <!-- Part 2020x10cm_2 -->
+        <geom type="mesh" class="visual" pos="0.1653 0 -0.092" quat="0 0 -0 1" mesh="2020x10cm" material="2020x10cm_material"/>
+        <geom type="mesh" class="collision" pos="0.1653 0 -0.092" quat="0 0 -0 1" mesh="2020x10cm" material="2020x10cm_material"/>
+        <!-- Part dm_j4340_2ec_6 -->
+        <geom type="mesh" class="visual" pos="0.1532 -0 -0.139098" quat="0.707107 -0 0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+        <geom type="mesh" class="collision" pos="0.1532 -0 -0.139098" quat="0.707107 -0 0.707107 0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+        <!-- Part 2020x20cm_4 -->
+        <geom type="mesh" class="visual" pos="0.2253 -0 0.018" quat="0 -0.707107 -0 0.707107" mesh="2020x20cm" material="2020x20cm_material"/>
+        <geom type="mesh" class="collision" pos="0.2253 -0 0.018" quat="0 -0.707107 -0 0.707107" mesh="2020x20cm" material="2020x20cm_material"/>
+        <!-- Part v6_20_j2_2 -->
+        <geom type="mesh" class="visual" pos="-0.0081 -0 0.036052" quat="0 1 0 -0" mesh="v6_20_j2" material="v6_20_j2_material"/>
+        <geom type="mesh" class="collision" pos="-0.0081 -0 0.036052" quat="0 1 0 -0" mesh="v6_20_j2" material="v6_20_j2_material"/>
+        <!-- Link dm_j4340_2ec_2 -->
+        <body name="dm_j4340_2ec_2" pos="0.2065 0 -0.139098" quat="0.5 -0.5 0.5 -0.5">
+          <!-- Joint from dm_j4340_2ec to dm_j4340_2ec_2 -->
+          <joint axis="0 0 1" name="LJ2" type="hinge"/>
+          <inertial pos="0.0816108 2.273e-09 -0.108365" mass="0.6629" fullinertia="0.00347714 0.00399968 0.000810527 1.64e-10 0.00105864 -1.66e-10"/>
+          <!-- Part v6_j2_20_2 -->
+          <geom type="mesh" class="visual" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_j2_20" material="v6_j2_20_material"/>
+          <geom type="mesh" class="collision" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_j2_20" material="v6_j2_20_material"/>
+          <!-- Part v6_20_j3_2 -->
+          <geom type="mesh" class="visual" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_20_j3" material="v6_20_j3_material"/>
+          <geom type="mesh" class="collision" pos="0 -0.0285 0.0075" quat="0.683013 -0.683013 -0.183013 -0.183013" mesh="v6_20_j3" material="v6_20_j3_material"/>
+          <!-- Part 2020x20cm_5 -->
+          <geom type="mesh" class="visual" pos="0.0275006 -0 0.0377311" quat="0.183013 0.683013 0.683013 0.183013" mesh="2020x20cm" material="2020x20cm_material"/>
+          <geom type="mesh" class="collision" pos="0.0275006 -0 0.0377311" quat="0.183013 0.683013 0.683013 0.183013" mesh="2020x20cm" material="2020x20cm_material"/>
+          <!-- Part dm_j4340_2ec_7 -->
+          <geom type="mesh" class="visual" pos="0.114169 -0 -0.148384" quat="0.353553 0.612372 -0.612372 -0.353553" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+          <geom type="mesh" class="collision" pos="0.114169 -0 -0.148384" quat="0.353553 0.612372 -0.612372 -0.353553" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+          <!-- Link v6_j3_2020_l -->
+          <body name="v6_j3_2020_l" pos="0.0680103 -0 -0.175034" quat="0.353553 -0.612372 -0.612372 0.353553">
+            <!-- Joint from dm_j4340_2ec_2 to v6_j3_2020_l -->
+            <joint axis="0 0 1" name="LJ3" type="hinge"/>
+            <inertial pos="-0.0211335 -0.197218 0.0388781" mass="0.86248" fullinertia="0.00735383 0.00260882 0.0068104 0.00104226 0.00089055 -0.00081978"/>
+            <!-- Part v6_j3_2020_l -->
+            <geom type="mesh" class="visual" pos="-0.0285 -0.0885 0.248682" quat="0.5 -0.5 -0.5 -0.5" mesh="v6_j3_2020_l" material="v6_j3_2020_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.0285 -0.0885 0.248682" quat="0.5 -0.5 -0.5 -0.5" mesh="v6_j3_2020_l" material="v6_j3_2020_l_material"/>
+            <!-- Part dm_j4340_2ec_8 -->
+            <geom type="mesh" class="visual" pos="0.008 -0.26 0.027332" quat="0 -1 -0 -0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+            <geom type="mesh" class="collision" pos="0.008 -0.26 0.027332" quat="0 -1 -0 -0" mesh="dm_j4340_2ec" material="dm_j4340_2ec_material"/>
+            <!-- Part 2020x20cm_6 -->
+            <geom type="mesh" class="visual" pos="-0.068 -0.2685 0.078682" quat="0.707107 -0.707107 0 0" mesh="2020x20cm" material="2020x20cm_material"/>
+            <geom type="mesh" class="collision" pos="-0.068 -0.2685 0.078682" quat="0.707107 -0.707107 0 0" mesh="2020x20cm" material="2020x20cm_material"/>
+            <!-- Part v6_2020_j4_l -->
+            <geom type="mesh" class="visual" pos="-0.068 -0.2885 0.214682" quat="0.5 -0.5 0.5 0.5" mesh="v6_2020_j4_l" material="v6_2020_j4_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.068 -0.2885 0.214682" quat="0.5 -0.5 0.5 0.5" mesh="v6_2020_j4_l" material="v6_2020_j4_l_material"/>
+            <!-- Frame L_shoulder -->
+            <site group="3" name="L_shoulder" pos="0 0 0.078682" quat="0.5 -0.5 0.5 -0.5"/>
+            <!-- Link v6_j4_j5_l -->
+            <body name="v6_j4_j5_l" pos="0.008 -0.26 -0.025968" quat="0 0.707107 0.707107 0">
+              <!-- Joint from v6_j3_2020_l to v6_j4_j5_l -->
+              <joint axis="0 0 1" name="LJ4" type="hinge"/>
+              <inertial pos="-0.054697 -0.0094417 -0.00245459" mass="0.49139" fullinertia="0.00105657 0.00119187 0.000538643 2.97343e-05 -0.000120659 -0.000177465"/>
+              <!-- Part v6_j4_j5_l -->
+              <geom type="mesh" class="visual" pos="-0.0285 -0.0285 -0.3253" quat="0.5 -0.5 -0.5 -0.5" mesh="v6_j4_j5_l" material="v6_j4_j5_l_material"/>
+              <geom type="mesh" class="collision" pos="-0.0285 -0.0285 -0.3253" quat="0.5 -0.5 -0.5 -0.5" mesh="v6_j4_j5_l" material="v6_j4_j5_l_material"/>
+              <!-- Part dm_j4310_2ec_5 -->
+              <geom type="mesh" class="visual" pos="-0.0431803 -0 0.0244282" quat="0.348175 -0.615447 -0.615447 0.348175" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+              <geom type="mesh" class="collision" pos="-0.0431803 -0 0.0244282" quat="0.348175 -0.615447 -0.615447 0.348175" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+              <!-- Link v6_wrist_j5_j6_2 -->
+              <body name="v6_wrist_j5_j6_2" pos="-0.0825226 -0 0.000785249" quat="0 -0.870373 0 0.492393">
+                <!-- Joint from v6_j4_j5_l to v6_wrist_j5_j6_2 -->
+                <joint axis="0 0 1" name="LJ5" type="hinge"/>
+                <inertial pos="-0.145035 -0.000119401 0.168953" mass="0.4484" fullinertia="0.00260463 0.00340197 0.000987304 3.35036e-06 0.00132357 -5.25689e-06"/>
+                <!-- Part v6_wrist_j5_j6_2 -->
+                <geom type="mesh" class="visual" pos="0 -0.0285 0.0075" quat="0.707107 -0.707107 -0 -0" mesh="v6_wrist_j5_j6" material="v6_wrist_j5_j6_material"/>
+                <geom type="mesh" class="collision" pos="0 -0.0285 0.0075" quat="0.707107 -0.707107 -0 -0" mesh="v6_wrist_j5_j6" material="v6_wrist_j5_j6_material"/>
+                <!-- Part dm_j4310_2ec_6 -->
+                <geom type="mesh" class="visual" pos="-0.146 -0 0.212" quat="0.5 0.5 -0.5 -0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                <geom type="mesh" class="collision" pos="-0.146 -0 0.212" quat="0.5 0.5 -0.5 -0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                <!-- Part v6_xt30_2_2_50cm_4 -->
+                <geom type="mesh" class="visual" pos="-0.0787817 -0.005 0.0672183" quat="0.270598 -0.270598 0.653281 0.653281" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                <geom type="mesh" class="collision" pos="-0.0787817 -0.005 0.0672183" quat="0.270598 -0.270598 0.653281 0.653281" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                <!-- Link v5_wrist_j6_j7_2 -->
+                <body name="v5_wrist_j6_j7_2" pos="-0.1919 -0 0.212" quat="0.707107 0 -0.707107 -0">
+                  <!-- Joint from v6_wrist_j5_j6_2 to v5_wrist_j6_j7_2 -->
+                  <joint axis="0 0 1" name="LJ6" type="hinge"/>
+                  <inertial pos="-0 0.0975631 -0.161926" mass="0.407" fullinertia="0.00180585 0.00164708 0.000326757 0 -0 0.000247612"/>
+                  <!-- Part v6_xt30_2_2_50cm_5 -->
+                  <geom type="mesh" class="visual" pos="-0 0.116 -0.0925" quat="0.707107 -0.707107 0 -0" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                  <geom type="mesh" class="collision" pos="-0 0.116 -0.0925" quat="0.707107 -0.707107 0 -0" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                  <!-- Part v5_wrist_j6_j7_2 -->
+                  <geom type="mesh" class="visual" pos="-0 0.131 -0.0955" quat="0.5 0.5 0.5 -0.5" mesh="v5_wrist_j6_j7" material="v5_wrist_j6_j7_material"/>
+                  <geom type="mesh" class="collision" pos="-0 0.131 -0.0955" quat="0.5 0.5 0.5 -0.5" mesh="v5_wrist_j6_j7" material="v5_wrist_j6_j7_material"/>
+                  <!-- Part dm_j4310_2ec_7 -->
+                  <geom type="mesh" class="visual" pos="-0 0.121 -0.191" quat="0.5 0.5 0.5 -0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                  <geom type="mesh" class="collision" pos="-0 0.121 -0.191" quat="0.5 0.5 0.5 -0.5" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                  <!-- Link dm_j4310_2ec -->
+                  <body name="dm_j4310_2ec" pos="-0 0.0751 -0.191" quat="0.5 0.5 0.5 -0.5">
+                    <!-- Joint from v5_wrist_j6_j7_2 to dm_j4310_2ec -->
+                    <joint axis="0 0 1" name="LJ7" type="hinge"/>
+                    <inertial pos="0.00205488 0.0647314 0.154012" mass="0.4573" fullinertia="0.00200291 0.00193779 0.000443531 3.45159e-05 -2.7424e-06 -0.000439089"/>
+                    <!-- Part dm_j4310_2ec_8 -->
+                    <geom type="mesh" class="visual" pos="0 0.075 0.21" quat="0 -1 0 0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                    <geom type="mesh" class="collision" pos="0 0.075 0.21" quat="0 -1 0 0" mesh="dm_j4310_2ec" material="dm_j4310_2ec_material"/>
+                    <!-- Part v5_wrist_j7_leader_gripper_l -->
+                    <geom type="mesh" class="visual" pos="-0.25 0 0" quat="1 -0 -0 -0" mesh="v5_wrist_j7_leader_gripper_l" material="v5_wrist_j7_leader_gripper_l_material"/>
+                    <geom type="mesh" class="collision" pos="-0.25 0 0" quat="1 -0 -0 -0" mesh="v5_wrist_j7_leader_gripper_l" material="v5_wrist_j7_leader_gripper_l_material"/>
+                    <!-- Part v6_xt30_2_2_50cm_6 -->
+                    <geom type="mesh" class="visual" pos="-0.03 0.054706 0.0643213" quat="0.5 -0.5 0.5 -0.5" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                    <geom type="mesh" class="collision" pos="-0.03 0.054706 0.0643213" quat="0.5 -0.5 0.5 -0.5" mesh="v6_xt30_2_2_50cm" material="v6_xt30_2_2_50cm_material"/>
+                    <!-- Frame L_wrist -->
+                    <site group="3" name="L_wrist" pos="0 0 0.0751" quat="0.707107 -0 -0 0.707107"/>
+                    <!-- Link v5_j8_4finger_2 -->
+                    <body name="v5_j8_4finger_2" pos="0 0.075 0.1641" quat="0 -0.707107 -0.707107 -0">
+                      <!-- Joint from dm_j4310_2ec to v5_j8_4finger_2 -->
+                      <joint axis="0 0 1" name="LJ8" type="hinge"/>
+                      <inertial pos="0.0582262 -2.729e-09 0.031412" mass="0.0384" fullinertia="3.92746e-05 6.14789e-05 2.96973e-05 -1e-12 -1.19931e-05 2e-12"/>
+                      <!-- Part v5_j8_4finger_2 -->
+                      <geom type="mesh" class="visual" pos="0 0 0.01" quat="0 1 0 0" mesh="v5_j8_4finger" material="v5_j8_4finger_material"/>
+                      <geom type="mesh" class="collision" pos="0 0 0.01" quat="0 1 0 0" mesh="v5_j8_4finger" material="v5_j8_4finger_material"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <asset>
+    <mesh file="v6_j4_j5_l.stl"/>
+    <mesh file="v6_j3_2020_l.stl"/>
+    <mesh file="2020x20cm.stl"/>
+    <mesh file="4040x30cm.stl"/>
+    <mesh file="v5_wrist_j7_leader_gripper_l.stl"/>
+    <mesh file="v5_wrist_j6_j7.stl"/>
+    <mesh file="v6_j1_20.stl"/>
+    <mesh file="v6_j4_j5_r.stl"/>
+    <mesh file="dm_j4340_2ec.stl"/>
+    <mesh file="2020x10cm.stl"/>
+    <mesh file="v6_wrist_j5_j6.stl"/>
+    <mesh file="v5_wrist_j7_leader_gripper_r.stl"/>
+    <mesh file="v5_j8_4finger.stl"/>
+    <mesh file="v6_20_j2.stl"/>
+    <mesh file="v5_4040_j1.stl"/>
+    <mesh file="v6_xt30_2_2_50cm.stl"/>
+    <mesh file="v6_2020_j4_r.stl"/>
+    <mesh file="v6_2020_j4_l.stl"/>
+    <mesh file="v6_j3_2020_r.stl"/>
+    <mesh file="v6_20_j3.stl"/>
+    <mesh file="dm_j4310_2ec.stl"/>
+    <mesh file="v6_j2_20.stl"/>
+    <material name="dm_j4340_2ec_material" rgba="0.901961 0.901961 0.901961 1"/>
+    <material name="v5_4040_j1_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="4040x30cm_material" rgba="0.901961 0.901961 0.901961 1"/>
+    <material name="v6_20_j2_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="v6_j1_20_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="2020x20cm_material" rgba="0.901961 0.901961 0.901961 1"/>
+    <material name="2020x10cm_material" rgba="0.901961 0.901961 0.901961 1"/>
+    <material name="v6_j2_20_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="v6_20_j3_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="v6_2020_j4_r_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v6_j3_2020_r_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="dm_j4310_2ec_material" rgba="0.941176 0.87451 0.678431 1"/>
+    <material name="v6_j4_j5_r_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v6_wrist_j5_j6_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v6_xt30_2_2_50cm_material" rgba="1 0 0 1"/>
+    <material name="v5_wrist_j6_j7_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v5_wrist_j7_leader_gripper_r_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v5_j8_4finger_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v6_j3_2020_l_material" rgba="0.890196 0.698039 0.639216 1"/>
+    <material name="v6_2020_j4_l_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v6_j4_j5_l_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="v5_wrist_j7_leader_gripper_l_material" rgba="0.615686 0.811765 0.929412 1"/>
+  </asset>
+  <actuator>
+    <position class="models" name="RJ1" joint="RJ1"/>
+    <position class="models" name="RJ2" joint="RJ2"/>
+    <position class="models" name="RJ3" joint="RJ3"/>
+    <position class="models" name="RJ4" joint="RJ4"/>
+    <position class="models" name="RJ5" joint="RJ5"/>
+    <position class="models" name="RJ6" joint="RJ6"/>
+    <position class="models" name="RJ7" joint="RJ7"/>
+    <position class="models" name="RJ8" joint="RJ8"/>
+    <position class="models" name="LJ1" joint="LJ1"/>
+    <position class="models" name="LJ2" joint="LJ2"/>
+    <position class="models" name="LJ3" joint="LJ3"/>
+    <position class="models" name="LJ4" joint="LJ4"/>
+    <position class="models" name="LJ5" joint="LJ5"/>
+    <position class="models" name="LJ6" joint="LJ6"/>
+    <position class="models" name="LJ7" joint="LJ7"/>
+    <position class="models" name="LJ8" joint="LJ8"/>
+  </actuator>
+  <equality/>
+</mujoco>

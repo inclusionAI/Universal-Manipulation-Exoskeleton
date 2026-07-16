@@ -1,0 +1,308 @@
+environment:
+  - "PYTHONUNBUFFERED=1"
+
+processes:
+
+  perception_redis:
+    description: Redis server
+    command: >
+      redis-server --save "" --appendonly no --notify-keyspace-events Kg$ --port 6380
+    ready_log_line: "Ready to accept connections"
+    availability:
+      restart: "exit_on_failure"
+
+  camera_head:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Head Worker
+    command: >
+      python -m ume.workers.uvc_camera 
+      --redis-port 6380 
+      --stream-key camera_head 
+      --dev-path /dev/video4
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  camera_wrist_left:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Left Wrist Worker
+    command: >
+      python -m ume.workers.uvc_camera 
+      --redis-port 6380 
+      --stream-key camera_wrist_left 
+      --dev-path /dev/video6
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  camera_wrist_right:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Right Wrist Worker
+    command: >
+      python -m ume.workers.uvc_camera
+      --redis-port 6380
+      --stream-key camera_wrist_right
+      --dev-path /dev/video8
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  camera_head_vis:
+    description: UVC Camera Head Visualization Worker
+    command: >
+      python -m ume.workers.uvc_camera_vis 
+      --redis-port 6380 
+      --stream-key camera_head
+      --scale 5
+    ready_log_line: "camera vis ready"
+    depends_on:
+      camera_head:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  camera_wrist_right_vis:
+    description: UVC Camera Right Wrist Visualization Worker
+    command: >
+      python -m ume.workers.uvc_camera_vis 
+      --redis-port 6380 
+      --stream-key camera_wrist_right
+      --scale 5
+    ready_log_line: "camera vis ready"
+    depends_on:
+      camera_wrist_right:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  control_redis:
+    description: Redis server
+    command: '$([ "$(uname)" = "Darwin" ] && echo "" || echo "taskset -c 15") redis-server --save "" --appendonly no --notify-keyspace-events Kg$ --port 6379'
+    ready_log_line: "Ready to accept connections"
+    availability:
+      restart: "exit_on_failure"
+
+  imu_worker:
+    description: IMU worker
+    command: python nova/robot/ybimu/ybimu_redis_worker.py
+    ready_log_line: "ybimu redis worker ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  mobile_base_imu_teleop:
+    description: Mobile Base IMU Teleoperation Worker
+    command: >
+      python ume/robot/mobile_openarm/hexfellow_base_imu_teleop_redis.py
+      --redis-host localhost
+      --redis-port 6379
+    ready_log_line: "HexFellow base IMU teleop ready"
+    depends_on:
+      control_redis:
+        condition: process_log_ready
+      imu_worker:
+        condition: process_log_ready
+
+  ume_leader_mit_controller_right:
+    description: ume right leader mit controller
+    command: taskset -c 14 python ume/workers/damiao_chain_mit_controller.py --can-channel can4 --control-frequency-hz 800 --motor-ids "1,2,3,4,5,6,7,8" --motor-types "DM4340,DM4340,DM4340,DM4340,DM4310,DM4310,DM4310,DM4310" --redis-port 6379 --input-name ume_leader_right_mit_command --output-name ume_leader_right_state
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  ume_leader_mit_controller_left:
+    description: ume left leader mit controller
+    command: taskset -c 13 python ume/workers/damiao_chain_mit_controller.py --can-channel can5 --control-frequency-hz 800 --motor-ids "1,2,3,4,5,6,7,8" --motor-types "DM4340,DM4340,DM4340,DM4340,DM4310,DM4310,DM4310,DM4310" --redis-port 6379 --input-name ume_leader_left_mit_command --output-name ume_leader_left_state
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  ume_leader_controller:
+    description: ume leader pinocchio controller
+    command: python ume/robot/ume/v6_bimanual/ume_leader/controller.py --redis-port 6379
+    ready_log_line: "ume leader controller ready"
+    depends_on:
+      ume_leader_mit_controller_right:
+        condition: process_log_ready
+      ume_leader_mit_controller_left:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  # ume_leader_vis:
+  #   description: ume leader visualization
+  #   command: python ume/robot/ume/v6_bimanual/ume_leader/vis.py --redis-port 6379
+  #   ready_log_line: "ume vis ready"
+  #   depends_on:
+  #     ume_leader_controller:
+  #       condition: process_log_ready
+  #   shutdown:
+  #     signal: 2
+  #     timeout_ms: 3000
+
+  follower_mit_controller_left:
+    description: openarm left follower mit controller
+    command: taskset -c 12 python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_left_mit_command --output-name openarm_follower_left_state --can-channel can2 --control-frequency-hz 800
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  follower_mit_controller_right:
+    description: openarm right follower mit controller
+    command: taskset -c 11 python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_right_mit_command --output-name openarm_follower_right_state --can-channel can3 --control-frequency-hz 800
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  # follower_vis:
+  #   description: openarm teleop solver
+  #   command: python ume/robot/openarm1/teleop_vis.py --redis-port 6379 --left openarm_follower_left --right openarm_follower_right
+  #   ready_log_line: "teleop vis ready"
+  #   depends_on:
+  #     follower_mit_controller_left:
+  #       condition: process_log_ready
+  #     follower_mit_controller_right:
+  #       condition: process_log_ready
+
+  openarm_follower_controller:
+    description: openarm follower pinocchio controller
+    command: python ume/robot/ume/v6_bimanual/openarm_follower/controller_real.py --redis-port 6379
+    depends_on:
+      follower_mit_controller_left:
+        condition: process_log_ready
+      follower_mit_controller_right:
+        condition: process_log_ready
+      ume_leader_controller:
+        condition: process_log_ready
+    ready_log_line: "openarm follower controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  # video recorder
+
+  video_recorder_wrist_right:
+    description: Video Recorder Worker
+    command: >
+      python ume/workers/video_recorder.py
+      --redis-host localhost
+      --redis-port 6380
+      --output-dir data/collecting
+      --camera-stream-key camera_wrist_right
+      --video-gop-size 10
+    ready_log_line: "video recorder ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+      control_redis:
+        condition: process_log_ready
+      camera_wrist_right:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  video_recorder_wrist_left:
+    description: Video Recorder Worker
+    command: >
+      python ume/workers/video_recorder.py
+      --redis-host localhost
+      --redis-port 6380
+      --output-dir data/collecting
+      --camera-stream-key camera_wrist_left
+      --video-gop-size 10
+    ready_log_line: "video recorder ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+      control_redis:
+        condition: process_log_ready
+      camera_wrist_left:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  video_recorder_head:
+    description: Video Recorder Worker
+    command: >
+      python ume/workers/video_recorder.py
+      --redis-host localhost
+      --redis-port 6380
+      --output-dir data/collecting
+      --camera-stream-key camera_head
+      --video-gop-size 10
+    ready_log_line: "video recorder ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+      control_redis:
+        condition: process_log_ready
+      camera_head:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  low_dim_recorder:
+    description: Low Dimensional Data Recorder Worker
+    command: >
+      python ume/workers/low_dim_npy_recorder.py
+      --redis-host localhost
+      --redis-port 6379
+      --output-dir data/collecting
+      --low-dim-stream-mapping-config-path "ume/robot/mobile_openarm/collect_data_recording_config.yaml"
+    ready_log_line: "low_dim recorder ready"
+    depends_on:
+      control_redis:
+        condition: process_log_ready
+      mobile_base_imu_teleop:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  collect_data:
+    description: Collect Data Worker
+    command: >
+      python ume/workers/collect_data.py
+      --control-redis-host localhost
+      --control-redis-port 6379
+      --perception-redis-host localhost
+      --perception-redis-port 6380
+      --recording-camera-names camera_wrist_right,camera_wrist_left,camera_head
+      --start-recording-key "u"
+      --stop-recording-key "q"
+    ready_log_line: "collect data ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+      control_redis:
+        condition: process_log_ready
+      video_recorder_wrist_right:
+        condition: process_log_ready
+      video_recorder_wrist_left:
+        condition: process_log_ready
+      video_recorder_head:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000

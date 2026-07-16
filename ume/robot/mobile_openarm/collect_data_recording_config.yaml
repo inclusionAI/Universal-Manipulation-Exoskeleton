@@ -1,0 +1,67 @@
+low_dim:
+
+  hexfellow_base_imu_teleop:timestamp:
+    dtype: float
+  hexfellow_base_imu_teleop:actual_position_rad:
+    dtype: np.ndarray
+  hexfellow_base_imu_teleop:actual_velocity_radps:
+    dtype: np.ndarray
+  hexfellow_base_imu_teleop:actual_velocity_xyt:
+    dtype: np.ndarray
+  hexfellow_base_imu_teleop:actual_position_xyt:
+    dtype: np.ndarray
+  hexfellow_base_imu_teleop:desired_vel_xyt:
+    dtype: np.ndarray
+  hexfellow_base_imu_teleop:desired_vel_xyt_with_acc_limit:
+    dtype: np.ndarray
+
+  openarm_follower_left_state:timestamp:
+    dtype: np.ndarray
+  openarm_follower_left_state:actual_angle_rad:
+    dtype: np.ndarray
+  openarm_follower_left_state:actual_velocity_radps:
+    dtype: np.ndarray
+  openarm_follower_left_state:actual_torque_nm:
+    dtype: np.ndarray
+  
+  openarm_follower_right_state:timestamp:
+    dtype: np.ndarray
+  openarm_follower_right_state:actual_angle_rad:
+    dtype: np.ndarray
+  openarm_follower_right_state:actual_velocity_radps:
+    dtype: np.ndarray
+  openarm_follower_right_state:actual_torque_nm:
+    dtype: np.ndarray
+  
+  openarm_follower_left_mit_command:timestamp:
+    dtype: float
+  openarm_follower_left_mit_command:kp:
+    dtype: np.ndarray
+  openarm_follower_left_mit_command:kd:
+    dtype: np.ndarray
+  openarm_follower_left_mit_command:q:
+    dtype: np.ndarray
+  openarm_follower_left_mit_command:dq:
+    dtype: np.ndarray
+  openarm_follower_left_mit_command:tau:
+    dtype: np.ndarray
+
+  openarm_follower_right_mit_command:timestamp:
+    dtype: float
+  openarm_follower_right_mit_command:kp:
+    dtype: np.ndarray
+  openarm_follower_right_mit_command:kd:
+    dtype: np.ndarray
+  openarm_follower_right_mit_command:q:
+    dtype: np.ndarray
+  openarm_follower_right_mit_command:dq:
+    dtype: np.ndarray
+  openarm_follower_right_mit_command:tau:
+    dtype: np.ndarray
+
+  openarm_follower_controller_state:timestamp:
+    dtype: float
+  openarm_follower_controller_state:tau_interaction_L:
+    dtype: np.ndarray
+  openarm_follower_controller_state:tau_interaction_R:
+    dtype: np.ndarray

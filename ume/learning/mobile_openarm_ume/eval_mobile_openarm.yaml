@@ -1,0 +1,152 @@
+environment:
+  - "PYTHONUNBUFFERED=1"
+
+processes:
+
+  perception_redis:
+    description: Redis server
+    command: >
+      redis-server --save "" --appendonly no --notify-keyspace-events Kg$ --port 6380
+    ready_log_line: "Ready to accept connections"
+    availability:
+      restart: "exit_on_failure"
+
+  camera_head:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Head Worker
+    command: >
+      python -m ume.workers.uvc_camera 
+      --redis-port 6380 
+      --stream-key camera_head 
+      --dev-path /dev/video4
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  camera_wrist_left:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Left Wrist Worker
+    command: >
+      python -m ume.workers.uvc_camera 
+      --redis-port 6380 
+      --stream-key camera_wrist_left 
+      --dev-path /dev/video8
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  camera_wrist_right:  # jieruiweitong HDR camera specific setting: brightness -64
+    description: UVC Camera Right Wrist Worker
+    command: >
+      python -m ume.workers.uvc_camera
+      --redis-port 6380
+      --stream-key camera_wrist_right
+      --dev-path /dev/video6
+      --brightness -64
+    ready_log_line: "camera ready"
+    depends_on:
+      perception_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  camera_head_vis:
+    description: UVC Camera Head Visualization Worker
+    command: >
+      python -m ume.workers.uvc_camera_vis 
+      --redis-port 6380 
+      --stream-key camera_head
+      --scale 5
+    ready_log_line: "camera vis ready"
+    depends_on:
+      camera_head:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  control_redis:
+    description: Redis server
+    command: '$([ "$(uname)" = "Darwin" ] && echo "" || echo "taskset -c 15") redis-server --save "" --appendonly no --notify-keyspace-events Kg$ --port 6379'
+    ready_log_line: "Ready to accept connections"
+    availability:
+      restart: "exit_on_failure"
+  
+  mobile_base_controller:
+    description: Mobile Base Eval Worker
+    command: >
+      python ume/learning/mobile_openarm/eval_hexfellow_base_controller.py
+      --redis-host localhost
+      --redis-port 6379
+    ready_log_line: "HexFellow base ready"
+    depends_on:
+      control_redis:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  follower_mit_controller_left:
+    description: openarm left follower mit controller
+    command: python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_left_mit_command --output-name openarm_follower_left_state --can-channel can2 --control-frequency-hz 600
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  follower_mit_controller_right:
+    description: openarm right follower mit controller
+    command: python ume/workers/damiao_chain_mit_controller.py --redis-port 6379 --input-name openarm_follower_right_mit_command --output-name openarm_follower_right_state --can-channel can3 --control-frequency-hz 600
+    ready_log_line: "damiao chain mit controller ready"
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+  
+  openarm_controller:
+    description: openarm eval controller
+    command: >
+      python ume/learning/mobile_openarm/eval_openarm_controller.py 
+      --redis-host localhost --redis-port 6379 --follower-left openarm_follower_left --follower-right openarm_follower_right
+      --stitch-duration 0.4
+      --chunk-renew-every-s 0.8
+    ready_log_line: "openarm controller ready"
+    depends_on:
+      follower_mit_controller_left:
+        condition: process_log_ready
+      follower_mit_controller_right:
+        condition: process_log_ready
+      mobile_base_controller:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
+
+  model_inference_worker:
+    description: model inference worker
+    command: >
+      conda run --no-capture-output -n ume_torch
+      python ume/learning/mobile_openarm_ume/model_inference_worker.py
+    ready_log_line: "model inference worker ready"
+    depends_on:
+      camera_head:
+        condition: process_log_ready
+      camera_wrist_left:
+        condition: process_log_ready
+      camera_wrist_right:
+        condition: process_log_ready
+      follower_mit_controller_left:
+        condition: process_log_ready
+      follower_mit_controller_right:
+        condition: process_log_ready
+    shutdown:
+      signal: 2
+      timeout_ms: 3000
